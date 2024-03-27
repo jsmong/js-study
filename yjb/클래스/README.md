@@ -73,7 +73,7 @@ Math.round(), Math.pow()..
 
 1. 클래스의 constructor 내부에서 리턴값을 명시적으로 변경하면 어떤 값이 출력될까?
 
-   > constructor는 별도의 반환문을 갖지 않아야 한다.  
+   > constructor는 별도의 반환문을 갖지 않아야 한다. 반드시 생략해야 한다.  
    > constructor 내부에서 명시적으로 this가 아닌 다른 값을 반환하는 것은 클래스의 기본 동작을 훼손한다.
 
    ```javascript
@@ -85,10 +85,10 @@ Math.round(), Math.pow()..
      }
    }
    const apple = new Apple('🍎');
-   console.log(apple);
+   console.log(apple); // ?
    ```
 
-2. 클래스의 타입은?
+2. 클래스와 클래스 인스턴스의 타입은?
 
    ```javascript
    class Apple {
@@ -96,5 +96,48 @@ Math.round(), Math.pow()..
        this.name = name;
      }
    }
+   const apple = new Apple('🍎');
+   ```
+
+   ```javascript
+   typeof Apple; // ?
    typeof apple; // ?
    ```
+
+3. 함수는 new 연산자 사용 여부에 따라 `일반 함수` or 인스턴스 생성을 위한 `생성자 함수`로 호출된다.  
+   그럼 클래스에서는?
+
+   예시
+
+   ```javascript
+   function Color(color) {
+     this.color = color;
+     return this.color;
+   }
+   ```
+
+   ```javascript
+   const color = new Color('Red'); // 1. 생성자 함수로 호출
+   console.log(color);
+
+   Color('Red'); // 2. 일반 함수로 호출
+   ```
+
+   클래스
+
+   ```javascript
+   class Color {
+     constructor(color) {
+       this.color = color;
+     }
+   }
+   ```
+
+   ```javascript
+   const color = new Color('Red'); // 1. 생성자 함수로 호출
+   console.log(color);
+
+   Color('Red'); // 2. 일반 함수로 호출
+   ```
+
+   위 코드의 출력값은??
