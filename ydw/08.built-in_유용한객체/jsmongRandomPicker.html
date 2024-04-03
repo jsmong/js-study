@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>JSmong 랜덤 이름뽑기</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>JSmong 랜덤 이름뽑기</h1>
+      <div>
+        <input
+          type="text"
+          id="nameInput"
+          placeholder="이름을 써주세용"
+        />
+        <button onclick="addName()">추가하기</button>
+      </div>
+      <div id="nameList"></div>
+      <button onclick="pickRandomName()">랜덤 뽑기</button>
+      <div id="selectedName"></div>
+    </div>
+  </body>
+</html>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  input[type='text'] {
+    padding: 8px;
+    margin: 5px;
+    font-size: 16px;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  #nameList {
+    margin-top: 20px;
+  }
+  .name-list {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  #selectedName {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+</style>
+<script>
+  const names = []; // 선택된 이름과 이모지를 저장할 배열
+
+  // 사용자가 입력한 이름을 배열에 추가하는 함수
+  function addName() {
+    const nameInput = document.getElementById('nameInput'); // 입력 필드에서 이름을 가져옴
+    const name = nameInput.value.trim(); // 입력된 이름의 앞뒤 공백을 제거하고 저장
+    if (name !== '') {
+      // 이름이 비어있지 않은 경우에만 실행
+      const emojis = ['🐶', '🐥', '😻', '🐷', '🐢', '🐰']; // 아이콘을 위한 이모지 배열
+      const randomIndex = Math.floor(
+        Math.random() * emojis.length
+      ); // 랜덤한 인덱스 생성
+      const emoji = emojis[randomIndex]; // 랜덤하게 선택된 이모지
+      names.push({ name, emoji }); // 이름과 해당하는 이모지를 객체로 만들어 배열에 추가
+      displayNames(); // 추가된 이름들을 화면에 표시
+      nameInput.value = ''; // 입력 필드 초기화
+    }
+  }
+
+  // 현재 선택된 이름들을 화면에 표시하는 함수
+  function displayNames() {
+    const nameListElement =
+      document.getElementById('nameList'); // 이름 목록이 표시될 요소
+    nameListElement.innerHTML = ''; // 기존의 이름 목록을 초기화
+    names.forEach(({ name, emoji }) => {
+      // 각 이름과 이모지를 반복하여 화면에 표시
+      const listItem = document.createElement('div'); // 새로운 요소를 생성
+      listItem.classList.add('name-list');
+      listItem.textContent = `${emoji} ${name}`; // 이모지와 이름을 합쳐서 텍스트로 설정
+      nameListElement.appendChild(listItem); // 새로운 요소를 이름 목록에 추가
+    });
+  }
+
+  // 랜덤하게 선택된 이름을 화면에 표시하는 함수
+  function pickRandomName() {
+    const selectedNameElement =
+      document.getElementById('selectedName'); // 선택된 이름이 표시될 요소
+    selectedNameElement.textContent = ''; // 기존의 선택된 이름을 초기화
+    if (names.length > 0) {
+      // 선택된 이름이 하나 이상 있는 경우에만 실행
+      const randomIndex = Math.floor(
+        Math.random() * names.length
+      ); // 랜덤한 인덱스 생성
+      const { name, emoji } = names[randomIndex]; // 랜덤하게 선택된 이름과 이모지
+      selectedNameElement.textContent = `당첨🎉: ${emoji} ${name}`; // 이모지와 이름을 함께 화면에 표시
+    } else {
+      selectedNameElement.textContent =
+        '아직 추가된 이름이 없습니다'; // 선택된 이름이 없는 경우 메시지 표시
+    }
+  }
+</script>
