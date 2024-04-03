@@ -29,6 +29,25 @@ const num = 25500;
 num.toLocaleString(); // '25,500'
 ```
 
+## encodeURI VS encodeURIComponent
+
+`encodeURI`: 영문자, 0~9의 숫자, ; , / ? : @ & = + $ # - _ . ! ~ \* ' ( ) 를 제외한 문자를 인코딩(이스케이프 처리)  
+`encodeURIComponent`: 영문자, 0~9의 숫자 - _ . ! ~ \* ' ( ) 를 제외한 문자를 이스케이프 처리
+
+```javascript
+encodeURI("0123abcABC;,/?:@&=+$#-_.!~*'()"); // 0123abcABC;,/?:@&=+$#-_.!~*'()
+encodeURIComponent("0123abcABC;,/?:@&=+$#-_.!~*'()"); // 0123abcABC%3B%2C%2F%3F%3A%40%26%3D%2B%24%23-_.!~*'()
+```
+
+## eval
+
+절대 사용 x
+
+```javascript
+eval('3+5');
+eval('alert("hello")');
+```
+
 ## Quiz
 
 1. 문자열의 모든 캐릭터를 하나씩 출력하라
@@ -72,4 +91,12 @@ setInterval(() => {
 setInterval(() => {
   console.log(new Date().toLocaleString('ko-KR'));
 }, 1000);
+```
+
+4. Date 객체에서 +1개월하기
+
+```javascript
+const date = new Date(2024, 4, 31);
+date.setMonth(date.getMonth() + 1);
+console.log(date);
 ```
