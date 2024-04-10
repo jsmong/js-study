@@ -125,6 +125,35 @@ console.timeEnd('fill');
 
 - 실행 환경에 따라 시간의 차이는 있지만 항상 for가 제일 빠르고 from이 제일 느렸음!
 
+<br />
+
+### [참고] empty, undefined, null
+
+```javascript
+const arr = Array.from(3); // [empty × 10]
+arr.fill(); // [undefined, undefined, undefined]
+```
+
+| `empty`
+
+```javascript
+let empty;
+```
+
+- 빈 값
+
+- _[참고의 참고] 예시 코드의 변수 키워드를 let으로 한 이유? const는 선언 + 초기화가 필수라서!_
+
+| `undefined`
+
+- 변수가 선언되었지만 초기화되지 않거나 값을 할당받지 않은 상태
+
+- 변수가 아예 선언되지 않은 것과 다르며, 변수 선언 시 초기화하지 않으면 자동으로 undefined값이 할당
+
+| `null`
+
+- **명시적, 의도적**으로 값이 없음을 나타내는 특별한 값
+
 <br /><br />
 
 ## 배열의 길이를 강제로 조정하면?
