@@ -130,7 +130,7 @@ console.timeEnd('fill');
 ### [참고] empty, undefined, null
 
 ```javascript
-const arr = Array.from(3); // [empty × 10]
+const arr = Array.from(3); // [empty × 3]
 arr.fill(); // [undefined, undefined, undefined]
 ```
 
