@@ -105,7 +105,7 @@ for(const num of multiple) {
 }
 ```
 
-1. 구조분해할당 하여 color를 출력하기
+2. 구조분해할당 하여 color를 출력하기
 
 ```jsx
 const prop = {
