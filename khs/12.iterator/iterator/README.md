@@ -2,7 +2,11 @@
 
 - 자바스크립트에서 `반복(iteration)`은 이터러블(iterable)과 이터레이터(iterator)를 기반으로 한다.
 
-<br /><br />
+<br />
+
+![이터러블 개념 정리](https://github.com/jsmong/js-study/assets/84097192/8c0c3582-9f69-48e9-b8bf-fd8a4678db76)
+
+<br />
 
 # 1. 이터러블 (Iterable)
 
