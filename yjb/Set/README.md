@@ -152,7 +152,7 @@ setA.difference(setB); // Set(3) {1, 2, 3}
 ```
 
 ```javascript
-setB.difference(setA); // SeSet(1) {5}
+setB.difference(setA); // Set(1) {5}
 ```
 
 <br/>
