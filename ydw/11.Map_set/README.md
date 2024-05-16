@@ -214,6 +214,23 @@ const getUnique = (element) => {
 
 ![alt text](https://velog.velcdn.com/images/himprover/post/36b7e935-7689-4220-ac87-3a0cff53426b/image.png)
 
+위 코드는 매우 간결해졌지만, 우선적으로 data 배열을 모두 반복한 후 다시 분류하는 과정이 있다. 좀더 최적화를 하려면
+
+Set 또한 Map과 동일한 기능을 제공하는 add(), delete(), clear() 메서드를 제공한다.
+그리고 중복이 없는 Set 특성 상 이미 존재하는 데이터를 add하면 무시한다.
+
+```jsx
+const uniqueCreater = (data) => {
+  const unique = new Set();
+  data.map((value) => {
+    unique.add(value.제조사);
+  });
+  return [...unique];
+};
+```
+
+![alt text](https://velog.velcdn.com/images/himprover/post/702a305a-75cd-4049-adbe-8b9fb9b80268/image.png)
+
 Set을 이용해 원하는 속성을 한번에 중복 없이 분류하며
 reduce()를 사용하면 이 코드에서 더 간단하게 하는 것도 가능하다.
 
