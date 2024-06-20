@@ -126,8 +126,152 @@ JavaScript 런타임은 이벤트 큐(Event Queue)를 사용하여 비동기 콜
 
 ### Promise 상태 (states)
 
-new Promise()로 프로미스를 생성하고 종료될 때까지 3가지 상태
-
 -   <code>Pending</code>(대기) : 비동기 처리 로직이 아직 완료되지 않은 상태
 -   <code>Fulfilled</code>(이행) : 비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
 -   <code>Rejected</code>(실패) : 비동기 처리가 실패하거나 오류가 발생한 상태
+    <br/>
+
+![alt text](image-7.png)
+
+### 여러 개의 프로미스 연결하기 (Promise Chaining)
+
+```jsx
+// then() 으로 여러 개의 프로미스를 연결한 형식
+new Promise(function (resolve, reject) {
+    setTimeout(function () {
+        resolve(1);
+    }, 2000);
+})
+    .then(function (result) {
+        console.log(result); // 1
+        return result + 10;
+    })
+    .then(function (result) {
+        console.log(result); // 11
+        return result + 20;
+    })
+    .then(function (result) {
+        console.log(result); // 31
+    });
+```
+
+1. 새로운 Promise 객체가 생성되고, 2초 후에 resolve(1)이 호출됩니다.
+2. 첫 번째 .then()에서 result 값 1을 받아 콘솔에 출력하고 11을 반환합니다.
+3. 두 번째 .then()에서 result 값 11을 받아 콘솔에 출력하고 31을 반환합니다.
+4. 세 번째 .then()에서 result 값 31을 받아 콘솔에 출력합니다.
+
+#### .then()은 이전 Promise의 결과를 받아 다음 작업을 처리하고, 최종적으로 원하는 결과를 얻을 수 있습니다.
+
+### 실무에서 있을 법한 프로미스 연결 사례
+
+```jsx
+getData(userInfo).then(parseValue).then(auth).then(diaplay);
+```
+
+-   위 코드는 페이지에 입력된 사용자 정보를 받아와 파싱, 인증 등의 작업을 거치는 코드
+-   userInfo는 사용자 정보가 담긴 객체를 의미하고, parseValue, auth, display는 각각 프로미스를 반환해주는 함수라고 가정
+
+```jsx
+var userInfo = {
+    id: 'test@abc.com',
+    pw: '****',
+};
+
+function parseValue() {
+    return new Promise({
+        // ...
+    });
+}
+function auth() {
+    return new Promise({
+        // ...
+    });
+}
+function display() {
+    return new Promise({
+        // ...
+    });
+}
+```
+
+이처럼 여러 개의 프로미스를 .then()으로 연결하여 처리할 수 있습니다.
+
+### Promise.all
+
+모든 Promise가 이행되면 이행되는 Promise를 반환합니다. 하나라도 거부되면 거부된 Promise를 반환합니다.
+
+### Promise.race
+
+가장 먼저 이행되거나 거부된 Promise를 반환합니다.
+
+### Promise.allSettled
+
+모든 Promise가 완료되면 이행되는 Promise를 반환합니다. 성공과 실패 여부에 관계없이 모든 결과를 배열로 반환합니다.
+
+<br/>
+
+## 5. Async, await
+
+-   async와 await는 JavaScript에서 비동기 코드를 동기 코드처럼 작성할 수 있게 해주는 문법
+-   이는 코드를 더 읽기 쉽게 만들고, 프로미스 체이닝의 복잡성을 줄이는 데 도움
+
+### Async 함수
+
+-   async 키워드는 함수 앞에 붙여서 해당 함수가 항상 프로미스를 반환하도록 만듭니다.
+-   만약 함수에서 명시적으로 프로미스를 반환하지 않더라도, async 함수는 자동으로 프로미스를 반환합니다.
+
+```jsx
+async function myFunction() {
+    return 'Hello';
+}
+
+// 위 함수는 다음과 동일합니다.
+function myFunction() {
+    return Promise.resolve('Hello');
+}
+```
+
+### Await 키워드
+
+-   await 키워드는 async 함수 안에서만 사용할 수 있습니다.
+-   이는 프로미스가 해결될 때까지 함수 실행을 일시 중지하고, 해결된 프로미스의 결과 값을 반환합니다.
+
+```jsx
+async function myFunction() {
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve('완료!'), 2000);
+    });
+
+    let result = await promise; // 프로미스가 해결될 때까지 기다립니다.
+    console.log(result); // "완료!"
+}
+
+myFunction();
+```
+
+### 예제: API 호출
+
+```jsx
+async function fetchData() {
+    try {
+        let response = await fetch('https://api.example.com/data');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        let data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+fetchData();
+```
+
+await 키워드를 사용하여 fetch 호출이 완료될 때까지 기다리고, 응답이 도착하면 이를 JSON으로 파싱하여 콘솔에 출력합니다. 에러가 발생하면 catch 블록에서 처리됩니다.
+
+### 장점
+
+-   가독성 향상: 비동기 코드를 동기 코드처럼 작성할 수 있어 가독성이 크게 향상됩니다.
+-   에러 처리: try/catch 블록을 사용하여 비동기 코드에서도 동기 코드처럼 에러를 처리할 수 있습니다.
+-   프로미스 체이닝 감소: .then() 체이닝을 줄여 코드를 더 간결하게 작성할 수 있습니다.
