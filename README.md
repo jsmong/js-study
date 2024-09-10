@@ -112,7 +112,7 @@
       <td align="center">
         <img
           style="width: 70x; height: 70px;"
-          src="https://avatars.githubusercontent.com/u/104073140?v=4"
+          src="https://avatars.githubusercontent.com/u/106906742?v=4"
           alt="프로필 이미지"
         />
       </td>
@@ -135,7 +135,7 @@
       <td align="center"><a href="https://github.com/JangHyunjeong">장현정</a></td>
       <td align="center"><a href="https://github.com/JeongbinYoon">윤정빈</a></td>
       <td align="center"><a href="https://github.com/yoohyunju">유현주</a></td>
-      <td align="center"><a href="https://github.com/wknowpark797">우아라</a></td>
+      <td align="center"><a href="https://github.com/dnwn-9001">장영인</a></td>
       <td align="center"><a href="https://github.com/ydw1996">양다윗</a></td>
       <td align="center"><a href="https://github.com/hansololiviakim">김한솔</a></td>
     </tr>
