@@ -39,6 +39,14 @@ console.log(Object.keys(person)); // ['age']
 추가 X
 
 <br/>
+
+| 구분           | 메서드                   | 프로퍼티 추가 | 프로퍼티 삭제 | 프로퍼티 값 읽기 | 프로퍼티 값 쓰기 | 프로퍼티 어트리뷰트 재정의 |
+| -------------- | ------------------------ | ------------- | ------------- | ---------------- | ---------------- | -------------------------- |
+| 객체 확장 금지 | Object.preventExtensions | X             | O             | O                | O                | O                          |
+| 객체 밀봉      | Object.seal              | X             | X             | O                | O                | X                          |
+| 객체 동결      | Object.freeze            | X             | X             | O                | X                | X                          |
+
+<br/>
 <br/>
 
 ### 사용 목적
@@ -62,7 +70,7 @@ config.apiUrl = 'https://newApi.example.com'; // 수정 불가
 <br/>
 <br/>
 
-> 최신 Jㄴ, Ts에서는 prototype을 직접적으로 사용하지 않음
+> 최신 Js, Ts에서는 prototype을 직접적으로 사용하지 않음
 
 ### Mixin
 
