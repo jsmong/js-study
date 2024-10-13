@@ -78,5 +78,40 @@ console.log(nabi)
 <br />
 
 ## 동적바인딩의 문제점
+- 메서드의 this와 메서드 내부의 중첩 함수 또는 콜백 함수의 this가 불일치하는 문제가 발생
+```javascript
+const person = {
+  name: '영인'
+  foo(callback) {
+    setTimeout(callback, 100);
+  }
+};
+
+person.foo(function() {
+  // Window.name
+  // 안녕, 내 이름은 .
+  console.log(`안녕, 내 이름은 ${this.name}.`) 
+})
+```
+- person.foo의 콜백 함수가 호출되기 이전 => this : person 객체를 가리킴
+- person.foo의 콜백 함수가 일반 함수로서 호출 => this : 전역 객체 Window(node.js에서는 undefined)
+- person.foo의 콜백 함수는 person.foo를 돕는 보조 함수 역할을 하기 때문에 this가 상이하면 문맥상 문제가 발생
+
+<br />
 
 ## 정적바인딩(명시적으로 this를 바인딩하는 방법)
+- 위의 동적바인딩의 문제점을 bind 메서드를 이용해 해결할 수 있다.
+- bind 메서드를 사용하여 콜백 함수 내부의 this와 외부 함수 내부의 this를 일치시킨다.
+```javascript
+const person = {
+  name: '영인'
+  foo(callback) {
+    setTimeout(callback.bind(this), 100);
+  }
+};
+
+person.foo(function() {
+  // 안녕, 내 이름은 영인.
+  console.log(`안녕, 내 이름은 ${this.name}.`) 
+})
+```
