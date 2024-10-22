@@ -98,27 +98,3 @@ obj.print(); // obj 객체를 출력
 | this의 동작 방식 | 호출 방식에 따라 결정              | 항상 해당 클래스 인스턴스를 가리킴   |
 | 함수 호출        | 전역 객체 참조 또는 undefined      | 항상 this가 클래스 인스턴스를 가리킴 |
 | 메서드 호출      | 메서드를 호출한 객체 참조 메서드가 | 정의된 클래스의 인스턴스 참조        |
-
-<!-- ======================================== -->
-<!-- js의 this
-
-java, c#코드 상에서 정적으로 결정
-js,ts는 런타임 상에서 this 바인딩 결정
-
-글로벌 컨텍스트의 this
-- browser: window
-- Node: 모듈
-
-const
-
-함수 내부에서의 this
-엄격모드에서는 undefined
-느슨한 모드에서는 globalThis
-```javascript
-function func(){
-    console.log(this)
-}
-func()
-``` -->
-
-<!-- 생성자 함수 or 클래스에서의 this, 앞으로 생성될 인스턴스 자체를 가리킴 -->
